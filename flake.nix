@@ -29,6 +29,7 @@
         devShells.default = pkgs.mkShell {
           inputsFrom = [ self.packages.${system}.default ];
           packages = with pkgs; [ poetry pyright pgEnv ];
+          LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib/";
           # Execs the current shell
           #shellHook = ''exec zsh'';
         };
