@@ -20,10 +20,14 @@
         pgEnv = pkgs.postgresql_16_jit.withPackages (pgpkgs: with pgpkgs; [pgvector]);
       in
       {
-        packages.default = mkPoetryApplication { projectDir = ./.; };
+        packages.default = mkPoetryApplication {
+          projectDir = ./.;
+          # Just let wheels handle deps
+          preferWheels = true;
+        };
 
         devShells.default = pkgs.mkShell {
-          #inputsFrom = [ self.packages.${system}.default ];
+          inputsFrom = [ self.packages.${system}.default ];
           packages = with pkgs; [ poetry pyright pgEnv ];
           # Execs the current shell
           #shellHook = ''exec zsh'';
