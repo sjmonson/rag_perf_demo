@@ -17,7 +17,9 @@ Answer:
 """
 
 def chat(args, embed_model, device, tokenizer):
-    model = LLM(model=os.getenv("SERVE_MODEL"))
+    model = LLM(model=os.getenv("SERVE_MODEL"),
+                max_model_len=512,
+                enable_chunked_prefill=True)
     print("Chat started. Type 'exit' to end the chat.")
 
     while True:
@@ -31,7 +33,8 @@ def chat(args, embed_model, device, tokenizer):
         query = template.format(context=retrieved, question=question)
 
         # Generate the response
-        answer = model.generate_text(query)
+        response = model.generate(query)
+        answer = response[0].outputs[0].text
 
         print(f"You Asked: {question}")
         print(f"Answer: {answer}")
