@@ -65,11 +65,11 @@ def main():
 
         tokenizer = AutoTokenizer.from_pretrained(
             os.getenv("EMBED_TOKEN"),
-            token=os.getenv("HUGGING_FACE_ACCESS_TOKEN"),
+            token=os.getenv("HF_TOKEN"),
         )
         model = AutoModelForCausalLM.from_pretrained(
             os.getenv("EMBED_MODEL"),
-            token=os.getenv("HUGGING_FACE_ACCESS_TOKEN"),
+            token=os.getenv("HF_TOKEN"),
             quantization_config=bnb_config,
             device_map=device,
             torch_dtype=torch.float16,
