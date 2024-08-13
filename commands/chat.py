@@ -1,7 +1,23 @@
+import os
 from rag import rag_query
+from vllm import LLM
 
 
-def chat(args, model, device, tokenizer):
+template = """<s>[INST]
+You are a friendly documentation search bot.
+Use following piece of context to answer the question.
+If the context is empty, try your best to answer without it.
+Never mention the context.
+Try to keep your answers concise unless asked to provide details.
+
+Context: {context}
+Question: {question}
+[/INST]</s>
+Answer:
+"""
+
+def chat(args, embed_model, device, tokenizer):
+    model = LLM(model=os.getenv("SERVE_MODEL"))
     print("Chat started. Type 'exit' to end the chat.")
 
     while True:
@@ -10,7 +26,12 @@ def chat(args, model, device, tokenizer):
         if question.lower() == "exit":
             break
 
-        answer = rag_query(tokenizer=tokenizer, model=model, device=device, query=question)
+        retrieved = rag_query(tokenizer=tokenizer, model=embed_model, device=device, query=question)
+
+        query = template.format(context=retrieved, question=question)
+
+        # Generate the response
+        answer = model.generate_text(query)
 
         print(f"You Asked: {question}")
         print(f"Answer: {answer}")

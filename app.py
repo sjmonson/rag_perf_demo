@@ -64,11 +64,11 @@ def main():
             bnb_config = None
 
         tokenizer = AutoTokenizer.from_pretrained(
-            os.getenv("TOKENIZER_NAME"),
+            os.getenv("EMBED_TOKEN"),
             token=os.getenv("HUGGING_FACE_ACCESS_TOKEN"),
         )
         model = AutoModelForCausalLM.from_pretrained(
-            os.getenv("MODEL_NAME"),
+            os.getenv("EMBED_MODEL"),
             token=os.getenv("HUGGING_FACE_ACCESS_TOKEN"),
             quantization_config=bnb_config,
             device_map=device,
