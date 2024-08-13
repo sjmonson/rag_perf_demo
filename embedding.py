@@ -1,5 +1,5 @@
 # importing all the required modules
-import PyPDF2
+import pypdf
 import torch
 from transformers import pipeline
 
@@ -13,7 +13,7 @@ def generate_embeddings(tokenizer, model, device, text):
 
 
 def read_pdf_file(pdf_path):
-    pdf_document = PyPDF2.PdfReader(pdf_path)
+    pdf_document = pypdf.PdfReader(pdf_path)
 
     lines = []
     for page_number in  range(len(pdf_document.pages)):

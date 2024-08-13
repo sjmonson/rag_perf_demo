@@ -1,11 +1,9 @@
 from itertools import chain
 import torch
-from pgvector.psycopg2 import register_vector
+from pgvector.psycopg import register_vector
 
 from db import get_connection
 from embedding import generate_embeddings
-
-from pgvector.psycopg2 import register_vector
 
 template = """<s>[INST]
 You are a friendly documentation search bot.

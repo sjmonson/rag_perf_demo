@@ -1,5 +1,5 @@
 import os
-import psycopg2
+import psycopg
 
 
 def create_db(args, model, device, tokenizer):
@@ -10,7 +10,7 @@ def create_db(args, model, device, tokenizer):
         "port": os.getenv("DB_PORT"),
     }
 
-    conn = psycopg2.connect(**db_config)
+    conn = psycopg.connect(**db_config)
     conn.autocommit = True  # Enable autocommit for creating the database
 
     cursor = conn.cursor()
@@ -28,7 +28,7 @@ def create_db(args, model, device, tokenizer):
 
     conn.close()
     db_config["dbname"] = os.getenv("DB_NAME")
-    conn = psycopg2.connect(**db_config)
+    conn = psycopg.connect(**db_config)
     conn.autocommit = True
 
     cursor = conn.cursor()
