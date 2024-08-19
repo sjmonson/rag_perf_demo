@@ -13,8 +13,8 @@ load_dotenv()
 
 
 class Command(Enum):
-    CREATE_DB = "create-db"
     IMPORT_DATA = "import-data"
+    CLEAR_DATA = "clear-data"
     CHAT = "chat"
 
 
@@ -37,10 +37,10 @@ def main():
     import_data_parser.set_defaults(func=import_data)
 
     # Clear data
-    import_data_parser = subparsers.add_parser(
-        Command.IMPORT_DATA.value, help="Clear data"
+    clear_data_parser = subparsers.add_parser(
+        Command.CLEAR_DATA.value, help="Clear data"
     )
-    import_data_parser.set_defaults(func=clear_data)
+    clear_data_parser.set_defaults(func=clear_data)
 
     # chat command
     chat_parser = subparsers.add_parser(
