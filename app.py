@@ -32,7 +32,7 @@ def main():
         Command.IMPORT_DATA.value, help="Import data"
     )
     import_data_parser.add_argument(
-        "data_source", type=str, help="Specify the PDF data source"
+        "data_source", nargs='+', type=str, help="Specify the PDF data source"
     )
     import_data_parser.set_defaults(func=import_data)
 

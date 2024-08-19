@@ -1,7 +1,6 @@
 # importing all the required modules
-import pypdf
+from langchain_community.document_loaders import PyPDFLoader
 import torch
-from transformers import pipeline
 
 def generate_embeddings(tokenizer, model, device, text):
     inputs = tokenizer(
@@ -13,14 +12,7 @@ def generate_embeddings(tokenizer, model, device, text):
 
 
 def read_pdf_file(pdf_path):
-    pdf_document = pypdf.PdfReader(pdf_path)
+    loader = PyPDFLoader("example_data/layout-parser-paper.pdf")
+    pages = loader.load_and_split()
 
-    lines = []
-    for page_number in  range(len(pdf_document.pages)):
-        page = pdf_document.pages[page_number]
-
-        text = page.extract_text()
-
-        lines.extend(text.splitlines())
-
-    return lines
+    return pages

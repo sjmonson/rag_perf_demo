@@ -16,6 +16,9 @@ pgvector = "^0.2.5"
 setuptools = "^72.1.0"
 pypdf = "^4.3.1"
 vllm = "^0.5.4"
+langchain = "^0.2.14"
+langchain-milvus = "^0.1.4"
+langchain-community = "^0.2.12"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.375"
