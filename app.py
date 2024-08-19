@@ -7,7 +7,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 from commands.chat import chat
-from commands.create_db import create_db
 from commands.import_data import import_data
 
 load_dotenv()
@@ -27,11 +26,6 @@ def main():
         dest="command",
         help="Display available subcommands",
     )
-
-    # create-db command
-    subparsers.add_parser(
-        Command.CREATE_DB.value, help="Create a database"
-    ).set_defaults(func=create_db)
 
     # import-data command
     import_data_parser = subparsers.add_parser(
