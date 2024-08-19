@@ -7,3 +7,8 @@ def import_data(args, model, device, tokenizer):
 
     db = VectorDB()
     conn = db.populate_db(documents)
+
+def clear_data(args, model, device, tokenizer):
+    db = VectorDB()
+    db.connect()
+    db.clear_db()

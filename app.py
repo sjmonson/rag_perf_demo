@@ -7,7 +7,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 from commands.chat import chat
-from commands.import_data import import_data
+from commands.import_data import import_data, clear_data
 
 load_dotenv()
 
@@ -35,6 +35,12 @@ def main():
         "data_source", nargs='+', type=str, help="Specify the PDF data source"
     )
     import_data_parser.set_defaults(func=import_data)
+
+    # Clear data
+    import_data_parser = subparsers.add_parser(
+        Command.IMPORT_DATA.value, help="Clear data"
+    )
+    import_data_parser.set_defaults(func=clear_data)
 
     # chat command
     chat_parser = subparsers.add_parser(
