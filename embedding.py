@@ -12,7 +12,7 @@ def generate_embeddings(tokenizer, model, device, text):
 
 
 def read_pdf_file(pdf_path):
-    loader = PyPDFLoader("example_data/layout-parser-paper.pdf")
+    loader = PyPDFLoader(pdf_path)
     pages = loader.load_and_split()
 
     return pages

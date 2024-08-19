@@ -5,7 +5,7 @@ from pymilvus import MilvusClient
 from pymilvus import connections, utility
 
 class VectorDB:
-    def __init__(self, host=os.getenv("DB_NAME"), port=os.getenv("DB_PORT"), collection_name="default", embedding_model=os.getenv("EMBED_MODEL")):
+    def __init__(self, host=os.getenv("DB_HOST"), port=os.getenv("DB_PORT"), collection_name="default", embedding_model=os.getenv("EMBED_MODEL")):
         self.host = host
         self.port = port
         self.collection_name = collection_name
