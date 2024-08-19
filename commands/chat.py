@@ -16,7 +16,7 @@ Question: {question}
 Answer:
 """
 
-def chat(args, embed_model, device, tokenizer):
+def chat(args):
     model = LLM(model=os.getenv("SERVE_MODEL"),
                 max_model_len=512,
                 enable_chunked_prefill=True)
@@ -28,7 +28,7 @@ def chat(args, embed_model, device, tokenizer):
         if question.lower() == "exit":
             break
 
-        retrieved = rag_query(tokenizer=tokenizer, model=embed_model, device=device, query=question)
+        retrieved = rag_query(question)
 
         query = template.format(context=retrieved, question=question)
 

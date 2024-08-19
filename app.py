@@ -2,9 +2,6 @@ import argparse
 from enum import Enum
 from dotenv import load_dotenv
 import os
-import torch
-
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 from commands.chat import chat
 from commands.import_data import import_data, clear_data
@@ -51,31 +48,7 @@ def main():
     args = parser.parse_args()
 
     if hasattr(args, "func"):
-        if torch.cuda.is_available():
-            device = "cuda"
-            bnb_config = BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_use_double_quant=True,
-                bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.bfloat16
-            )
-        else:
-            device = "cpu"
-            bnb_config = None
-
-        tokenizer = AutoTokenizer.from_pretrained(
-            os.getenv("EMBED_TOKEN"),
-            token=os.getenv("HF_TOKEN"),
-        )
-        model = AutoModelForCausalLM.from_pretrained(
-            os.getenv("EMBED_MODEL"),
-            token=os.getenv("HF_TOKEN"),
-            quantization_config=bnb_config,
-            device_map=device,
-            torch_dtype=torch.float16,
-        )
-
-        args.func(args, model, device, tokenizer)
+        args.func(args)
     else:
         print("Invalid command. Use '--help' for assistance.")
 

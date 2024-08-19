@@ -2,13 +2,13 @@ from itertools import chain
 from db import VectorDB
 from embedding import read_pdf_file
 
-def import_data(args, model, device, tokenizer):
+def import_data(args):
     documents = list(chain(*[ read_pdf_file(doc) for doc in args.data_source ]))
 
     db = VectorDB()
     conn = db.populate_db(documents)
 
-def clear_data(args, model, device, tokenizer):
+def clear_data(args):
     db = VectorDB()
     db.connect()
     db.clear_db()
